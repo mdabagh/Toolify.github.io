@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toolify</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.57.0/lucide.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800" id="body">
+
+    <header class="bg-indigo-500 text-white py-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <h1 id="header-title" class="text-2xl font-bold">Toolify</h1>
+            <div>
+                <button id="toggle-theme" class="p-2 rounded bg-white text-blue-600 hover:bg-indigo-600 hover:text-white transition">
+                    تغییر تم
+                </button>
+                <button id="toggle-language" class="p-2 rounded bg-white text-blue-600 hover:bg-indigo-600 hover:text-white transition ml-4">
+                    تغییر زبان
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-8 px-4">
+        <div class="flex justify-center mb-6">
+            <input 
+                id="search-box" 
+                type="text" 
+                placeholder="جستجو ابزار..." 
+                class="text-gray-950  w-full md:w-1/2 p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                oninput="filterTools()"
+            />
+        </div>
+
+        <section class="mb-10" id="general-tools-section">
+            <h2 class="text-xl font-bold mb-4">ابزارهای عمومی</h2>
+            <div id="general-tools" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section class="mb-10" id="data-tools-section">
+            <h2 class="text-xl font-bold mb-4">ابزارهای داده</h2>
+            <div id="data-tools" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+    </main>
+
+ <footer class="bg-indigo-500 text-white py-6 text-center">
+    <p>
+        <span>&copy; 2025 </span>
+        <span id="footer-title">Toolify</span> | 
+        <a href="https://github.com/OpenTools-Hub" class="underline hover:text-blue-300">
+            مشارکت در گیت‌هاب | GitHub Contribution
+        </a>
+    </p>
+    <p class="mt-4 text-sm">
+        توسعه داده با ❤️ و ☕ توسط جمعی از توسعه دهندگان در گیت‌هاب به صورت اپن سورس.
+    </p>
+</footer>
+
+    <script>
+        const data = {
+            "generalTools": [
+                {
+                    "name": { "fa": "ماشین حساب آنلاین", "en": "Online Calculator" },
+                    "description": { "fa": "انجام محاسبات ریاضی به سادگی", "en": "Perform simple math calculations" },
+                    "icon": "lucide-calculator",
+                    "url": "general-tools/calculator.html",
+                    "isAvailable": true
+                },
+                {
+                    "name": { "fa": "ترجمه آنلاین", "en": "Online Translator" },
+                    "description": { "fa": "به‌زودی...", "en": "Coming soon..." },
+                    "icon": "lucide-translate",
+                    "url": "#",
+                    "isAvailable": false
+                },
+                {
+                    "name": { "fa": "دفترچه یادداشت", "en": "Notepad" },
+                    "description": { "fa": "یادداشت‌برداری سریع و آسان", "en": "Quick and easy note-taking" },
+                    "icon": "lucide-notepad",
+                    "url": "general-tools/notes.html",
+                    "isAvailable": true
+                }
+            ],
+            "dataTools": [
+                {
+                    "name": { "fa": "تحلیل داده", "en": "Data Analysis" },
+                    "description": { "fa": "به‌زودی...", "en": "Coming soon..." },
+                    "icon": "lucide-bar-chart",
+                    "url": "#",
+                    "isAvailable": false
+                },
+                {
+                    "name": { "fa": "اعتبارسنجی JSON", "en": "JSON Validator" },
+                    "description": { "fa": "بررسی صحت فایل‌های JSON", "en": "Validate JSON files" },
+                    "icon": "lucide-code",
+                    "url": "data-tools/json-validator.html",
+                    "isAvailable": true
+                },
+                {
+                    "name": { "fa": "تبدیل CSV به JSON", "en": "CSV to JSON Converter" },
+                    "description": { "fa": "به‌زودی...", "en": "Coming soon..." },
+                    "icon": "lucide-file-code",
+                    "url": "#",
+                    "isAvailable": false
+                }
+            ]
+        };
+
+        const languageData = {
+    "fa": {
+        "header": "تولیفای",
+        "generalToolsSection": "ابزارهای عمومی",
+        "dataToolsSection": "ابزارهای داده",
+        "footerTitle": "تولیفای",
+        "searchPlaceholder": "جستجو ابزار...",
+        "toggleTheme": "تغییر تم",
+        "toggleLanguage": "تغییر زبان",
+        "footerGitHub": "مشارکت در گیت‌هاب",
+        "footerDescription": "توسعه داده با ❤️ و ☕ توسط جمعی از توسعه دهندگان در گیت‌هاب به صورت اپن سورس."
+    },
+    "en": {
+        "header": "Toolify",
+        "generalToolsSection": "General Tools",
+        "dataToolsSection": "Data Tools",
+        "footerTitle": "Toolify",
+        "searchPlaceholder": "Search tools...",
+        "toggleTheme": "Change Theme",
+        "toggleLanguage": "Change Language",
+        "footerGitHub": "GitHub Contribution",
+        "footerDescription": "Developed with ❤️ and ☕ by a group of developers on GitHub, open source."
+    }
+};
+
+
+        let currentLanguage = localStorage.getItem('language') || 'fa';
+        let currentTheme = localStorage.getItem('theme') || 'light';
+
+        // Set theme and language based on local storage
+        if (currentTheme === 'dark') {
+            document.body.classList.add('bg-gray-900', 'text-white');
+        }
+
+        // Change content based on language
+        function updateLanguage() {
+            const language = languageData[currentLanguage];
+            document.getElementById('header-title').textContent = language.header;
+            document.getElementById('general-tools-section').querySelector('h2').textContent = language.generalToolsSection;
+            document.getElementById('data-tools-section').querySelector('h2').textContent = language.dataToolsSection;
+            document.getElementById('footer-title').textContent = language.footerTitle;
+            document.getElementById('search-box').placeholder = language.searchPlaceholder;
+            document.getElementById('toggle-theme').textContent = language.toggleTheme;
+            document.getElementById('toggle-language').textContent = language.toggleLanguage;
+            document.querySelector('footer a').textContent = language.footerGitHub;
+    document.querySelector('footer .mt-4.text-sm').textContent = language.footerDescription;
+
+            
+        }
+
+        // Toggle theme between light and dark
+        document.getElementById('toggle-theme').addEventListener('click', function () {
+            const body = document.body;
+            body.classList.toggle('bg-gray-900');
+            body.classList.toggle('text-white');
+            currentTheme = body.classList.contains('bg-gray-900') ? 'dark' : 'light';
+            localStorage.setItem('theme', currentTheme);
+            loadToolsData(); // Re-load tools data to adjust the card title color
+        });
+
+        // Toggle language between English and Persian
+        document.getElementById('toggle-language').addEventListener('click', function () {
+            currentLanguage = currentLanguage === 'fa' ? 'en' : 'fa';
+            localStorage.setItem('language', currentLanguage);
+            updateLanguage();
+            loadToolsData(); // Reload tool data in selected language
+        });
+
+        // Filter tools based on search input
+        function filterTools() {
+            const searchQuery = document.getElementById('search-box').value.toLowerCase();
+
+            // Filter general tools
+            const filteredGeneralTools = data.generalTools.filter(tool =>
+                tool.name[currentLanguage].toLowerCase().includes(searchQuery) ||
+                tool.description[currentLanguage].toLowerCase().includes(searchQuery)
+            );
+
+            // Filter data tools
+            const filteredDataTools = data.dataTools.filter(tool =>
+                tool.name[currentLanguage].toLowerCase().includes(searchQuery) ||
+                tool.description[currentLanguage].toLowerCase().includes(searchQuery)
+            );
+
+            // Render filtered tools
+            renderTools(filteredGeneralTools, filteredDataTools);
+        }
+
+        // Load tools data dynamically with language handling
+        function loadToolsData() {
+            const generalToolsContainer = document.getElementById('general-tools');
+            const dataToolsContainer = document.getElementById('data-tools');
+
+            // Clear previous content
+            generalToolsContainer.innerHTML = '';
+            dataToolsContainer.innerHTML = '';
+
+            // Load general tools
+            data.generalTools.forEach(tool => {
+                const toolCard = document.createElement('a');
+                toolCard.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow', 'hover:shadow-lg', 'transition', 'block');
+                if (!tool.isAvailable) toolCard.classList.add('cursor-not-allowed', 'bg-gray-200');
+                toolCard.href = tool.isAvailable ? tool.url : '#';
+                toolCard.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="lucide ${tool.icon} text-blue-600 text-3xl"></i>
+                        <h3 class="ml-4 text-lg font-semibold ${currentTheme === 'dark' ? 'text-black' : ''}">${tool.name[currentLanguage]}</h3>
+                    </div>
+                    <p class="mt-2 text-gray-600">${tool.description[currentLanguage]}</p>
+                `;
+                generalToolsContainer.appendChild(toolCard);
+            });
+
+            // Load data tools
+            data.dataTools.forEach(tool => {
+                const toolCard = document.createElement('a');
+                toolCard.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow', 'hover:shadow-lg', 'transition', 'block');
+                if (!tool.isAvailable) toolCard.classList.add('cursor-not-allowed', 'bg-gray-200');
+                toolCard.href = tool.isAvailable ? tool.url : '#';
+                toolCard.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="lucide ${tool.icon} text-blue-600 text-3xl"></i>
+                        <h3 class="ml-4 text-lg font-semibold ${currentTheme === 'dark' ? 'text-black' : ''}">${tool.name[currentLanguage]}</h3>
+                    </div>
+                    <p class="mt-2 text-gray-600">${tool.description[currentLanguage]}</p>
+                `;
+                dataToolsContainer.appendChild(toolCard);
+            });
+        }
+
+        // Render filtered tools based on search
+        function renderTools(filteredGeneralTools, filteredDataTools) {
+            const generalToolsContainer = document.getElementById('general-tools');
+            const dataToolsContainer = document.getElementById('data-tools');
+
+            // Clear previous content
+            generalToolsContainer.innerHTML = '';
+            dataToolsContainer.innerHTML = '';
+
+            // Render filtered general tools
+            filteredGeneralTools.forEach(tool => {
+                const toolCard = document.createElement('a');
+                toolCard.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow', 'hover:shadow-lg', 'transition', 'block');
+                if (!tool.isAvailable) toolCard.classList.add('cursor-not-allowed', 'bg-gray-200');
+                toolCard.href = tool.isAvailable ? tool.url : '#';
+                toolCard.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="lucide ${tool.icon} text-blue-600 text-3xl"></i>
+                        <h3 class="ml-4 text-lg font-semibold ${currentTheme === 'dark' ? 'text-black' : ''}">${tool.name[currentLanguage]}</h3>
+                    </div>
+                    <p class="mt-2 text-gray-600">${tool.description[currentLanguage]}</p>
+                `;
+                generalToolsContainer.appendChild(toolCard);
+            });
+
+            // Render filtered data tools
+            filteredDataTools.forEach(tool => {
+                const toolCard = document.createElement('a');
+                toolCard.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow', 'hover:shadow-lg', 'transition', 'block');
+                if (!tool.isAvailable) toolCard.classList.add('cursor-not-allowed', 'bg-gray-200');
+                toolCard.href = tool.isAvailable ? tool.url : '#';
+                toolCard.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="lucide ${tool.icon} text-blue-600 text-3xl"></i>
+                        <h3 class="ml-4 text-lg font-semibold ${currentTheme === 'dark' ? 'text-black' : ''}">${tool.name[currentLanguage]}</h3>
+                    </div>
+                    <p class="mt-2 text-gray-600">${tool.description[currentLanguage]}</p>
+                `;
+                dataToolsContainer.appendChild(toolCard);
+            });
+        }
+
+        // Initialize the page
+        updateLanguage();
+        loadToolsData();
+    </script>
+
+</body>
+</html>
